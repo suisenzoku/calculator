@@ -13,8 +13,8 @@ const operators = {
     "subtract": "-"
 }
 
+let previous = "";
 let current = "";
-let first = "";
 let operator = "";
 
 const operate = (operator, a, b) => {
@@ -40,16 +40,23 @@ const handleNumberClick = () => {
     })
 }
 
+const swap = () => {
+    previous = current;
+    current = "";
+}
+
 const handleOperatorClick = () => {
     const operators = document.querySelectorAll(".operator");
     operators.forEach((button) => {
         button.addEventListener("click", (e) => {
-            if (operator || !current) {
-                return;
+            if (previous && current) {
+                const equals = document.querySelector(".equals");
+                equals.click();
+            } else if (!previous) {
+                operator = e.target.id;
+                swap();
+                updateDisplay();
             }
-            operator = e.target.id;
-            switchValue();
-            updateDisplay();
         })
     })
 }
@@ -60,13 +67,17 @@ const handleEqualsClick = () => {
         if (!operator || !current) {
             return;
         }
-        const result = evualuateStrings(operator, first, current);
-        if (result) {
-            updateCalculator(result);
+        const result = evualuateStrings(operator, previous, current);
+        if (result !== null) {
+            current = result;
+            operator = "";
+            previous = "";
             updateDisplay();
         } else {
-            clear();
             updateDisplay("Invalid operation");
+            previous = "";
+            operator = "";
+            current = "";
         }
     });
 }
@@ -80,22 +91,7 @@ const evualuateStrings = (operator, a, b) => {
     return operate(operator, firstValue, secondValue);
 }
 
-const clear = () => {
-    first = "";
-    current = "";
-    opreator = "";
-}
 
-const updateCalculator = (result) => {
-    first = result;
-    current = "";
-    operator = "";
-}
-
-const switchValue = () => {
-    first = current;
-    current = "";
-}
 
 const updateDisplay = (text) => {
     const display = document.querySelector(".display");
@@ -104,8 +100,9 @@ const updateDisplay = (text) => {
         return;
     }
 
-    if (first) {
-        display.textContent = `${first} ${operators[operator] ? operators[operator] : ""} ${current}`;
+    if (operator) {
+        const symbol = operators[operator] ? operators[operator] : "";
+        display.textContent = `${previous} ${symbol} ${current}`;
     } else {
         display.textContent = `${current}`;
     }
