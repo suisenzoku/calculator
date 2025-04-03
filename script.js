@@ -118,11 +118,26 @@ const handleDotClick = () => {
     })
 }
 
+const clear = () => {
+    previous = "";
+    current = "";
+    operator = "";
+}
+
+const handleClearClick = () => {
+    const clearButton = document.querySelector("#clear");
+    clearButton.addEventListener('click', (e) => {
+        clear();
+        updateDisplay("0");
+    })
+}
+
 const init = () => {
     handleNumberClick();
     handleOperatorClick();
     handleEqualsClick();
     handleDotClick();
+    handleClearClick();
 }
 
 init();
