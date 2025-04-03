@@ -69,15 +69,12 @@ const handleEqualsClick = () => {
         }
         const result = evualuateStrings(operator, previous, current);
         if (result !== null) {
+            clear();
             current = round(result);
-            operator = "";
-            previous = "";
             updateDisplay();
         } else {
             updateDisplay("Invalid operation");
-            previous = "";
-            operator = "";
-            current = "";
+            clear();
         }
     });
 }
