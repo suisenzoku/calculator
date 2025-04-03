@@ -6,9 +6,15 @@ const divide = (a, b) => {
     return a / b;
 }
 
+const operators = {
+    "multiply": "x",
+    "divide": "/",
+    "add": "+",
+    "subtract": "-"
+}
+
 let current = "";
 let first = "";
-let second = "";
 let operator = "";
 
 const operate = (operator, a, b) => {
@@ -34,6 +40,25 @@ const handleNumberClick = () => {
     })
 }
 
+const handleOperatorClick = () => {
+    const operators = document.querySelectorAll(".operator");
+    operators.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            if (operator) {
+                return;
+            }
+            operator = e.target.id;
+            switchValue();
+            updateDisplay();
+        })
+    })
+}
+
+const switchValue = () => {
+    first = current;
+    current = "";
+}
+
 const updateDisplay = (text) => {
     const display = document.querySelector(".display");
     if (text) {
@@ -42,7 +67,7 @@ const updateDisplay = (text) => {
     }
 
     if (operator) {
-        display.textContent = `${first} ${operator} ${current}`;
+        display.textContent = `${first} ${operators[operator]} ${current}`;
     } else {
         display.textContent = `${current}`;
     }
@@ -50,6 +75,7 @@ const updateDisplay = (text) => {
 
 const init = () => {
     handleNumberClick();
+    handleOperatorClick();
 }
 
 init();
