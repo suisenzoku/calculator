@@ -69,7 +69,7 @@ const handleEqualsClick = () => {
         }
         const result = evualuateStrings(operator, previous, current);
         if (result !== null) {
-            current = result;
+            current = round(result);
             operator = "";
             previous = "";
             updateDisplay();
@@ -80,6 +80,10 @@ const handleEqualsClick = () => {
             current = "";
         }
     });
+}
+
+const round = (value) => {
+    return Math.round(value * 1000) / 1000;
 }
 
 const evualuateStrings = (operator, a, b) => {
