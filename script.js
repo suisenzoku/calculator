@@ -108,10 +108,21 @@ const updateDisplay = (text) => {
     }
 }
 
+const handleDotClick = () => {
+    const dot = document.querySelector(".dot");
+    dot.addEventListener("click", (e) => {
+        if (current && !current.includes(".")) {
+            current += ".";
+            updateDisplay();
+        }
+    })
+}
+
 const init = () => {
     handleNumberClick();
     handleOperatorClick();
     handleEqualsClick();
+    handleDotClick();
 }
 
 init();
