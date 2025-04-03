@@ -10,3 +10,43 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.calculator {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-grow: 1;
+}
+
+.row button {
+    flex-basis: 0;
+    flex-grow: 1;
+    font-size: 1.2rem;
+}
+
+#clear {
+    flex-grow: 0;
+    flex-basis: 75%;
+    text-transform: uppercase;
+}
+
+#equals {
+    flex-grow: 0;
+    flex-basis: 50%;
+}
+
+.display {
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 2px;
+    background-color: rgb(233, 233, 233);
+    text-align: end;
+    line-height: 3rem;
+    font-size: 2rem;
+    padding: 1rem;
+    overflow-x: scroll;
+}
